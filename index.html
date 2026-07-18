@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kamal Kant Thakur | Interactive Portfolio</title>
+    <style>
+        /* Base Themes and Reset */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #e0f2fe; /* Vibrant light blue background */
+            color: #1e293b;
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        /* Container to keep content centered */
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Centered Header Section */
+        header {
+            text-align: center;
+            padding: 50px 0 30px 0;
+            border-bottom: 2px solid #bae6fd;
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+        }
+
+        /* Profile Picture Styling */
+        .profile-pic {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #0284c7; /* Sky blue accent frame */
+            box-shadow: 0 10px 25px rgba(2, 132, 199, 0.2);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+        .profile-pic:hover {
+            transform: scale(1.05);
+        }
+
+        /* Text containment for name and title */
+        .profile-info {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .profile-title {
+            font-size: 2.5rem;
+            color: #0c4a6e; /* Deep ocean blue */
+            font-weight: 800;
+            margin-bottom: 5px;
+            letter-spacing: -0.5px;
+        }
+        .profile-subtitle {
+            font-size: 1.1rem;
+            color: #0284c7;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .profile-meta {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        /* Main Content Layout */
+        .main-content {
+            margin-top: 40px;
+        }
+
+        /* Interactive Accordion Section/Thumbnail Styling */
+        .resume-section {
+            margin-bottom: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .resume-section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        /* The clickable thumbnail header button */
+        .thumbnail-btn {
+            width: 100%;
+            padding: 22px 28px;
+            text-align: left;
+            border: none;
+            outline: none;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Unique Color Coding for Each Section Thumbnail */
+        #sec-edu .thumbnail-btn { background-color: #e0f2fe; color: #0369a1; } 
+        #sec-skills .thumbnail-btn { background-color: #dcfce7; color: #15803d; } 
+        #sec-projects .thumbnail-btn { background-color: #fef9c3; color: #a16207; } 
+        #sec-cert-extra .thumbnail-btn { background-color: #f3e8ff; color: #7e22ce; } 
+
+        .thumbnail-btn:hover {
+            filter: brightness(0.97);
+        }
+
+        /* Interactive Chevron Icon Animation */
+        .chevron {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+            font-weight: bold;
+        }
+        .active .chevron {
+            transform: rotate(90deg);
+        }
+
+        /* Content Panel - Fixed height issue with modern transitions */
+        .panel {
+            background-color: #ffffff;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+            padding: 0 28px;
+        }
+
+        .panel-inner {
+            padding: 24px 0;
+            color: #334155;
+        }
+
+        .panel-inner ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        .panel-inner li {
+            margin-bottom: 12px;
+        }
+
+        .edu-item, .project-item {
+            margin-bottom: 25px;
+            border-bottom: 1px dashed #e2e8f0;
+            padding-bottom: 20px;
+        }
+        .edu-item:last-child, .project-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            color: #0f172a;
+            flex-wrap: wrap;
+            margin-bottom: 4px;
+            align-items: center;
+        }
+        .item-sub {
+            color: #64748b;
+            font-size: 0.9rem;
+            font-style: italic;
+            margin-bottom: 12px;
+        }
+
+        /* Toggle Button Layout for Marks */
+        .toggle-marks-btn {
+            background-color: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            color: #334155;
+            padding: 5px 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .toggle-marks-btn:hover {
+            background-color: #e2e8f0;
+            color: #0f172a;
+        }
+
+        /* Hidden Marks Container Layout */
+        .marks-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        /* Marks Table Design */
+        .marks-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+        .marks-table th, .marks-table td {
+            border: 1px solid #e2e8f0;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        .marks-table th {
+            background-color: #f8fafc;
+            color: #0f172a;
+            font-weight: 600;
+        }
+
+        /* Badge pills for skills layout */
+        .skill-group {
+            margin-bottom: 15px;
+        }
+        .skill-group h4 {
+            color: #0f172a;
+            margin-bottom: 8px;
+            font-size: 1.05rem;
+        }
+        .badge {
+            display: inline-block;
+            background-color: #f1f5f9;
+            color: #475569;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-right: 6px;
+            margin-bottom: 8px;
+            border: 1px solid #e2e8f0;
+            font-weight: 500;
+        }
+
+        /* Inline View Certificate Button Styling */
+        .inline-view-btn {
+            background-color: #f3e8ff;
+            border: 1px solid #d8b4fe;
+            color: #6b21a8;
+            padding: 3px 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 8px;
+            transition: all 0.2s ease;
+        }
+        .inline-view-btn:hover {
+            background-color: #e9d5ff;
+        }
+
+        /* Pop-up Modal Window Setup */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background-color: #ffffff;
+            margin: auto;
+            padding: 30px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 550px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            position: relative;
+            border: 1px solid #e2e8f0;
+            animation: modalFadeIn 0.3s ease;
+        }
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .close-modal {
+            color: #94a3b8;
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .close-modal:hover {
+            color: #475569;
+        }
+        .cert-display-box {
+            border: 2px dashed #d8b4fe;
+            background-color: #faf5ff;
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        /* Contact Section */
+        .contact-box {
+            background: white;
+            border: 2px solid #bae6fd;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin-top: 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+        }
+        .contact-btn {
+            display: inline-block;
+            background-color: #0284c7;
+            color: white;
+            text-decoration: none;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-top: 15px;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.2);
+            transition: background-color 0.2s, transform 0.2s;
+        }
+        .contact-btn:hover {
+            background-color: #0369a1;
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <img src="passport pic.jpg" alt="Kamal Kant Thakur Profile Picture" class="profile-pic">
+            
+            <div class="profile-info">
+                <h1 class="profile-title">Kamal Kant Thakur</h1>
+                <p class="profile-subtitle">Artificial Intelligence & Machine Learning Student</p>
+                <p class="profile-meta">Kanpur, India | kamalkantthakur0023@gmail.com</p>
+            </div>
+        </header>
+
+        <main class="main-content">
+            
+            <div class="resume-section" id="sec-edu">
+                <button class="thumbnail-btn">
+                    <span>🎓 Education</span>
+                    <span class="chevron">❯</span>
+                </button>
+                <div class="panel">
+                    <div class="panel-inner">
+                        <div class="edu-item">
+                            <div class="item-header">
+                                <span>B.Tech in CSE (AIML)</span>
+                                <span>2023 - Present</span>
+                            </div>
+                            <div class="item-sub">Dr. Ambedkar Institute of Technology for Divyangjan, Kanpur</div>
+                        </div>
+
+                        <div class="edu-item">
+                            <div class="item-header">
+                                <div>
+                                    <span>Intermediate (Class XII) — 66.4%</span>
+                                    <button class="toggle-marks-btn" onclick="toggleMarks(event, 'marks12')">📊 Show Marks</button>
+                                </div>
+                                <span>2022 - 2023</span>
+                            </div>
+                            <div class="item-sub">Lucknow Public School, Lucknow</div>
+                            
+                            <div id="marks12" class="marks-container">
+                                <table class="marks-table">
+                                   <thead>
+                                       <tr>
+                                           <th>Subject</th>
+                                           <th>Marks Obtained</th>
+                                           <th>Grade</th>
+                                       </tr>
+                                   </thead>
+                                   <tbody>
+                                       <tr><td>English Core</td><td>89 / 100</td><td>A2</td></tr>
+                                       <tr><td>Computer Science</td><td>82 / 100</td><td>B2</td></tr>
+                                       <tr><td>Physics</td><td>59 / 100</td><td>C2</td></tr>
+                                       <tr><td>Mathematics</td><td>51 / 100</td><td>D1</td></tr>
+                                       <tr><td>Chemistry</td><td>51 / 100</td><td>D2</td></tr>
+                                   </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="edu-item">
+                            <div class="item-header">
+                                <div>
+                                    <span>High School (Class X) — 94.8%</span>
+                                    <button class="toggle-marks-btn" onclick="toggleMarks(event, 'marks10')">📊 Show Marks</button>
+                                </div>
+                                <span>2020 - 2021</span>
+                            </div>
+                            <div class="item-sub">Lucknow Public School, Lucknow</div>
+                            
+                            <div id="marks10" class="marks-container">
+                                <table class="marks-table">
+                                   <thead>
+                                       <tr>
+                                           <th>Subject</th>
+                                           <th>Marks Obtained</th>
+                                           <th>Grade</th>
+                                       </tr>
+                                   </thead>
+                                   <tbody>
+                                       <tr><td>Information Technology</td><td>97 / 100</td><td>A1</td></tr>
+                                       <tr><td>Hindi Course-A</td><td>95 / 100</td><td>A1</td></tr>
+                                       <tr><td>Mathematics Standard</td><td>95 / 100</td><td>A1</td></tr>
+                                       <tr><td>Social Science</td><td>95 / 100</td><td>A1</td></tr>
+                                       <tr><td>Science</td><td>92 / 100</td><td>A1</td></tr>
+                                       <tr><td>English Lng & Lit.</td><td>85 / 100</td><td>B1</td></tr>
+                                   </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="resume-section" id="sec-skills">
+                <button class="thumbnail-btn">
+                    <span>⚡ Technical & Soft Skills</span>
+                    <span class="chevron">❯</span>
+                </button>
+                <div class="panel">
+                    <div class="panel-inner">
+                        <div class="skill-group">
+                            <h4>Core Skills</h4>
+                            <span class="badge">RDBMS</span>
+                            <span class="badge">Project Management</span>
+                        </div>
+                        <div class="skill-group">
+                            <h4>Domain Skills</h4>
+                            <span class="badge">Software Engineering</span>
+                            <span class="badge">Data Structuring</span>
+                        </div>
+                        <div class="skill-group">
+                            <h4>Tools & Technology</h4>
+                            <span class="badge">Python</span>
+                            <span class="badge">SQL</span>
+                            <span class="badge">C</span>
+                        </div>
+                        <div class="skill-group">
+                            <h4>Soft Skills</h4>
+                            <span class="badge">Leadership</span>
+                            <span class="badge">Discipline</span>
+                            <span class="badge">Time Management</span>
+                            <span class="badge">Adaptability</span>
+                            <span class="badge">Team Work</span>
+                            <span class="badge">Problem Solving</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="resume-section" id="sec-projects">
+                <button class="thumbnail-btn">
+                    <span>🚀 Key Projects</span>
+                    <span class="chevron">❯</span>
+                </button>
+                <div class="panel">
+                    <div class="panel-inner">
+                        <div class="project-item">
+                            <div class="item-header">Bank Management System</div>
+                            <div class="item-sub">Python, MySQL & MySQL Connector</div>
+                            <p>Developed a secure client and transaction management architecture utilizing relational databases mapped directly over optimized backend connectors.</p>
+                        </div>
+                        <div class="project-item">
+                            <div class="item-header">Cryptography System</div>
+                            <div class="item-sub">Data Privacy & Encryption Tool</div>
+                            <p>Engineered an encoding engine specialized in programmatic data protection operations through algorithmic mathematical encryption configurations.</p>
+                        </div>
+                        <div class="project-item">
+                            <div class="item-header">Intra-College Engagement Network</div>
+                            <div class="item-sub">Social Platform Concept</div>
+                            <p>Designed structural flows for a dynamic web workspace allowing synchronous interaction patterns spanning standard learners, instructional faculty, and university alumni networks.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="resume-section" id="sec-cert-extra">
+                <button class="thumbnail-btn">
+                    <span>🏆 Certifications & Activities</span>
+                    <span class="chevron">❯</span>
+                </button>
+                <div class="panel">
+                    <div class="panel-inner">
+                        <h4 style="margin-bottom: 8px; color:#0f172a;">Courses & Verified Credentials</h4>
+                        <ul>
+                            <li>Introduction to Generative AI — Harvard University</li>
+                            <li>Introduction to Generative AI — Google Cloud</li>
+                            <li>AI Hands-on Development Deployment Specialization — Qualcomm Technologies</li>
+                            <li>
+                                Certification of completion of Project Management course from Alison 
+                                <button class="inline-view-btn" onclick="openCertModal('alison')">🔍 View Certificate</button>
+                            </li>
+                            <li>
+                                Certification of completion of Project Management Assessment from Learn Tube 
+                                <button class="inline-view-btn" onclick="openCertModal('learntube')">🔍 View Certificate</button>
+                            </li>
+                        </ul>
+
+                        <h4 style="margin-top: 25px; margin-bottom: 8px; color:#0f172a;">Extracurricular Activities & Leadership</h4>
+                        <ul>
+                            <li><strong>Fest Management Executive:</strong> Actively coordinated physical logistical structures, commercial sponsorship acquisitions, and comprehensive on-site discipline protocols across 1st, 2nd, and 3rd-year university fests.</li>
+                            <li><strong>Institutional Delegate:</strong> Formally represented the engineering division at corporate functions Hosted by The Institute of Engineers (India).</li>
+                            <li><strong>National Esports Competitor:</strong> Competed across complex strategic tiers at regional frameworks, securing multiple individual and co-op tactical multi-player structural titles.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-box">
+                <h3 style="color:#0c4a6e; margin-bottom:8px;">Let's Connect</h3>
+                <p>Have an interesting project or opening? Drop a message straight into my inbox.</p>
+                <a href="mailto:kamalkantthakur0023@gmail.com" class="contact-btn">Send an Email</a>
+            </div>
+        </main>
+    </div>
+
+    <div id="certModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeCertModal()">&times;</span>
+            <h3 id="modalTitle" style="color: #6b21a8; margin-bottom: 5px;">Certificate Document Viewer</h3>
+            <div class="cert-display-box" id="modalBody">
+                </div>
+        </div>
+    </div>
+
+    <script>
+        // Main Click Router handling section drawers safely
+        document.querySelectorAll('.thumbnail-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                // Ignore structural expansions if click targets an inline button element
+                if (e.target.closest('.toggle-marks-btn') || e.target.closest('.inline-view-btn')) return;
+                
+                const panel = button.nextElementSibling;
+                const chevron = button.querySelector('.chevron');
+                
+                // Toggle current button's visibility status
+                button.classList.toggle('active');
+                
+                if (panel.style.maxHeight && panel.style.maxHeight !== '0px') {
+                    panel.style.maxHeight = '0px';
+                } else {
+                    // Close other sections first
+                    document.querySelectorAll('.panel').forEach(p => p.style.maxHeight = '0px');
+                    document.querySelectorAll('.thumbnail-btn').forEach(b => b.classList.remove('active'));
+                    
+                    button.classList.add('active');
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                }
+            });
+        });
+
+        // Fixed Nesting expansion calculations for the Show Marks rows
+        function toggleMarks(event, id) {
+            event.stopPropagation(); // Prevents click from traveling out and triggering section close
+            
+            const container = document.getElementById(id);
+            const btn = event.target;
+            const parentPanel = container.closest('.panel');
+            
+            if (container.style.maxHeight && container.style.maxHeight !== '0px') {
+                container.style.maxHeight = '0px';
+                btn.innerText = '📊 Show Marks';
+                
+                // Readjust container dimensions after layout animation ends
+                setTimeout(() => {
+                    if (parentPanel && parentPanel.style.maxHeight !== '0px') {
+                        parentPanel.style.maxHeight = parentPanel.scrollHeight + "px";
+                    }
+                }, 300);
+            } else {
+                container.style.maxHeight = container.scrollHeight + "px";
+                btn.innerText = '🙈 Hide Marks';
+                
+                // Instantly dynamically expand parent wrapper to fit the incoming table block
+                if (parentPanel) {
+                    parentPanel.style.maxHeight = (parentPanel.scrollHeight + container.scrollHeight) + "px";
+                }
+            }
+        }
+
+        // On-page modal rendering scripts mapping raw credential records safely
+        function openCertModal(type) {
+            const modal = document.getElementById('certModal');
+            const title = document.getElementById('modalTitle');
+            const body = document.getElementById('modalBody');
+            
+            if (type === 'alison') {
+                title.innerText = "Alison Verification Hub";
+                body.innerHTML = `
+                    <h2 style="color: #1e293b; margin-bottom:10px;">🏆 AWARD CERTIFICATE</h2>
+                    <p style="font-size:1.1rem; margin-bottom:15px;">Presented to: <strong>KAMAL KANT THAKUR</strong></p>
+                    <p style="margin-bottom:8px;">For successfully validating comprehensive technical skills inside:</p>
+                    <h3 style="color: #22c55e; margin-bottom:15px;">Project Management Professional Course</h3>
+                    <p style="font-size:0.85rem; color:#64748b;">Date Verified: 27th April, 2024<br>Credential Identifier: 980-20084437</p>
+                `;
+            } else if (type === 'learntube') {
+                title.innerText = "LearnTube.ai Assessment Registry";
+                body.innerHTML = `
+                    <h2 style="color: #1e293b; margin-bottom:10px;">🎖️ P.E.A.K.S. PLACEMENT CERTIFICATE</h2>
+                    <p style="font-size:1.1rem; margin-bottom:15px;">Presented to: <strong>KAMAL KANT THAKUR</strong></p>
+                    <p style="margin-bottom:8px;">For structural competency excellence tracking across:</p>
+                    <h3 style="color: #3b82f6; margin-bottom:15px;">Real Job Scenario Project Management Assessment</h3>
+                    <p style="font-size:0.85rem; color:#64748b;">Issue Date: June 14, 2026<br>Evaluation Registry ID: DJA-B-1-2635535-0</p>
+                `;
+            }
+            
+            modal.style.display = "flex";
+        }
+
+        function closeCertModal() {
+            document.getElementById('certModal').style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('certModal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
