@@ -13,8 +13,9 @@
         }
         body {
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: #e0f2fe; /* Vibrant light blue background */
-            color: #1e293b;
+            /* Premium deep midnight slate theme */
+            background-color: #030712;
+            color: #f3f4f6;
             line-height: 1.6;
             padding-bottom: 60px;
         }
@@ -27,14 +28,15 @@
             padding: 20px;
         }
 
-        /* Centered Header Section */
+        /* Centered Header Section with sharp borders */
         header {
             text-align: center;
-            padding: 50px 0 30px 0;
-            border-bottom: 2px solid #bae6fd;
-            display: flex;
-            flex-direction: column;
-            align-items: center; 
+            padding: 45px 20px;
+            border: 1px solid #1f2937;
+            background-color: #0b0f19;
+            border-radius: 12px;
+            margin-bottom: 35px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
         }
 
         /* Profile Picture Styling */
@@ -43,13 +45,15 @@
             height: 140px;
             border-radius: 50%;
             object-fit: cover;
-            border: 4px solid #0284c7; /* Sky blue accent frame */
-            box-shadow: 0 10px 25px rgba(2, 132, 199, 0.2);
+            border: 2px solid #00f5ff; /* Sharp fluorescent cyan */
+            box-shadow: 0 0 15px rgba(0, 245, 255, 0.3);
             margin-bottom: 20px;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
         .profile-pic:hover {
             transform: scale(1.05);
+            border-color: #ff007f; /* Flashes hyper-pink on hover */
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.5);
         }
 
         /* Text containment for name and title */
@@ -58,26 +62,42 @@
             margin-bottom: 10px;
         }
         .profile-title {
-            font-size: 2.5rem;
-            color: #0c4a6e; /* Deep ocean blue */
+            font-size: 2.6rem;
+            color: #ffffff;
             font-weight: 800;
             margin-bottom: 5px;
             letter-spacing: -0.5px;
         }
         .profile-subtitle {
-            font-size: 1.1rem;
-            color: #0284c7;
-            font-weight: 600;
-            margin-bottom: 5px;
+            font-size: 1.15rem;
+            color: #00f5ff;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         .profile-meta {
             font-size: 0.9rem;
-            color: #64748b;
+            color: #9ca3af;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+        .profile-meta a {
+            color: #00f5ff;
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.2s;
+        }
+        .profile-meta a:hover {
+            color: #ff007f;
+            text-decoration: underline;
         }
 
         /* Main Content Layout */
         .main-content {
-            margin-top: 40px;
+            margin-top: 20px;
         }
 
         /* Interactive Accordion Section/Thumbnail Styling */
@@ -85,14 +105,14 @@
             margin-bottom: 20px;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.7);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            border: 1px solid #1f2937;
+            transition: transform 0.2s ease, border-color 0.2s ease;
         }
         
         .resume-section:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+            border-color: #374151;
         }
 
         /* The clickable thumbnail header button */
@@ -103,37 +123,37 @@
             border: none;
             outline: none;
             font-size: 1.3rem;
-            font-weight: 700;
+            font-weight: 800;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.2s ease, filter 0.2s;
         }
 
-        /* Unique Color Coding for Each Section Thumbnail */
-        #sec-edu .thumbnail-btn { background-color: #e0f2fe; color: #0369a1; } 
-        #sec-skills .thumbnail-btn { background-color: #dcfce7; color: #15803d; } 
-        #sec-projects .thumbnail-btn { background-color: #fef9c3; color: #a16207; } 
-        #sec-cert-extra .thumbnail-btn { background-color: #f3e8ff; color: #7e22ce; } 
+        /* High-Contrast Sharp Color Indicators for Each Section */
+        #sec-edu .thumbnail-btn { background-color: #1e1b4b; color: #38bdf8; border-bottom: 2px solid #0284c7; } 
+        #sec-skills .thumbnail-btn { background-color: #064e3b; color: #34d399; border-bottom: 2px solid #059669; } 
+        #sec-projects .thumbnail-btn { background-color: #431407; color: #fb923c; border-bottom: 2px solid #ea580c; } 
+        #sec-cert-extra .thumbnail-btn { background-color: #4c0519; color: #f472b6; border-bottom: 2px solid #db2777; } 
 
         .thumbnail-btn:hover {
-            filter: brightness(0.97);
+            filter: brightness(1.2);
         }
 
         /* Interactive Chevron Icon Animation */
         .chevron {
             font-size: 1.2rem;
             transition: transform 0.3s ease;
-            font-weight: bold;
+            font-weight: 900;
         }
         .active .chevron {
             transform: rotate(90deg);
         }
 
-        /* Content Panel */
+        /* Content Panel - Closed by default */
         .panel {
-            background-color: #ffffff;
+            background-color: #0b0f19;
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease-out, padding 0.3s ease;
@@ -142,101 +162,104 @@
 
         .panel-inner {
             padding: 24px 0;
-            color: #334155;
+            color: #d1d5db;
         }
 
-        /* Sub-Navigation Blocks for Schooling and Graduation */
+        /* Vibrant Sub-Navigation Tabs */
         .edu-nav-container {
             display: flex;
-            gap: 15px;
-            margin-bottom: 25px;
-            border-bottom: 2px solid #e2e8f0;
+            gap: 12px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid #1f2937;
             padding-bottom: 12px;
         }
         .edu-nav-tab {
             flex: 1;
             padding: 12px;
             text-align: center;
-            background-color: #f8fafc;
-            border: 1px solid #cbd5e1;
+            background-color: #111827;
+            border: 1px solid #1f2937;
             border-radius: 8px;
             font-weight: 700;
-            color: #475569;
+            color: #9ca3af;
             cursor: pointer;
             transition: all 0.2s ease;
         }
         .edu-nav-tab:hover {
-            background-color: #f1f5f9;
-            color: #0f172a;
+            background-color: #1f2937;
+            color: #ffffff;
         }
         .edu-nav-tab.active-tab {
-            background-color: #0284c7;
-            color: #ffffff;
-            border-color: #0284c7;
-            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.15);
+            background-color: #1e293b;
+            color: #00f5ff;
+            border-color: #00f5ff;
+            text-shadow: 0 0 5px rgba(0, 245, 255, 0.3);
         }
 
         /* Tab Content Dynamic Containers */
         .edu-tab-content {
             display: none;
-            animation: fadeInTab 0.4s ease;
+            animation: fadeInTab 0.3s ease-out;
         }
         .edu-tab-content.active-content {
             display: block;
         }
         @keyframes fadeInTab {
-            from { opacity: 0; transform: translateY(5px); }
+            from { opacity: 0; transform: translateY(4px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Clickable Institution Names */
+        /* Clickable Institution Links */
         .clickable-name {
-            color: #0284c7;
+            color: #00f5ff;
             cursor: pointer;
-            text-decoration: underline dotted;
+            text-decoration: underline dotted #00f5ff;
             transition: color 0.2s ease;
         }
         .clickable-name:hover {
-            color: #0369a1;
+            color: #ff007f;
+            text-decoration: underline dotted #ff007f;
         }
 
-        /* Interactive Institution Info Card Overlay */
+        /* Premium Dark Institution Card Content Overlay */
         .institution-card {
             display: none;
-            background-color: #f8fafc;
-            border: 1px solid #bae6fd;
+            background-color: #030712;
+            border: 1px solid #1f2937;
             border-radius: 8px;
-            padding: 15px;
-            margin-top: 10px;
-            margin-bottom: 15px;
-            animation: fadeInTab 0.3s ease;
+            padding: 16px;
+            margin-top: 12px;
+            margin-bottom: 16px;
+            animation: fadeInTab 0.25s ease;
         }
         .institution-flex {
             display: flex;
-            gap: 15px;
+            gap: 16px;
             flex-wrap: wrap;
         }
         .institution-img {
-            width: 130px;
-            height: 130px;
+            width: 120px;
+            height: 120px;
             object-fit: cover;
             border-radius: 6px;
-            border: 1px solid #cbd5e1;
-            background-color: #e2e8f0;
+            border: 1px solid #374151;
+            background-color: #111827;
         }
         .institution-info {
             flex: 1;
             min-width: 200px;
             font-size: 0.9rem;
+            color: #9ca3af;
         }
         .institution-info h4 {
-            color: #0c4a6e;
-            margin-bottom: 4px;
+            color: #ffffff;
+            margin-bottom: 6px;
+            font-size: 1.05rem;
         }
 
         .edu-item, .project-item {
             margin-bottom: 25px;
-            border-bottom: 1px dashed #e2e8f0;
+            border-bottom: 1px dashed #1f2937;
             padding-bottom: 20px;
         }
         .edu-item:last-child, .project-item:last-child {
@@ -249,13 +272,13 @@
             display: flex;
             justify-content: space-between;
             font-weight: 700;
-            color: #0f172a;
+            color: #ffffff;
             flex-wrap: wrap;
             margin-bottom: 4px;
             align-items: center;
         }
         .item-sub {
-            color: #64748b;
+            color: #38bdf8;
             font-size: 0.9rem;
             font-style: italic;
             margin-bottom: 12px;
@@ -263,12 +286,12 @@
 
         /* Toggle Button Layout for Marks */
         .toggle-marks-btn {
-            background-color: #f1f5f9;
-            border: 1px solid #cbd5e1;
-            color: #334155;
+            background-color: #111827;
+            border: 1px solid #38bdf8;
+            color: #38bdf8;
             padding: 6px 14px;
             font-size: 0.8rem;
-            font-weight: 600;
+            font-weight: 700;
             border-radius: 6px;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -277,8 +300,9 @@
             gap: 4px;
         }
         .toggle-marks-btn:hover {
-            background-color: #e2e8f0;
-            color: #0f172a;
+            background-color: #38bdf8;
+            color: #030712;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
         }
 
         /* Hidden Marks Container Layout */
@@ -288,62 +312,90 @@
             transition: max-height 0.3s ease-out;
         }
 
-        /* Marks Table Design */
+        /* Sharp High-Contrast Marks Table Design */
         .marks-table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 12px;
             margin-bottom: 10px;
             font-size: 0.9rem;
+            background-color: #030712;
         }
         .marks-table th, .marks-table td {
-            border: 1px solid #e2e8f0;
+            border: 1px solid #1f2937;
             padding: 8px 12px;
             text-align: left;
         }
         .marks-table th {
-            background-color: #f8fafc;
-            color: #0f172a;
-            font-weight: 600;
+            background-color: #111827;
+            color: #00f5ff;
+            font-weight: 700;
+        }
+        .marks-table tr:hover {
+            background-color: #111827;
         }
 
         /* Badge pills for skills layout */
         .skill-group {
-            margin-bottom: 15px;
+            margin-bottom: 18px;
         }
         .skill-group h4 {
-            color: #0f172a;
+            color: #ffffff;
             margin-bottom: 8px;
             font-size: 1.05rem;
         }
         .badge {
             display: inline-block;
-            background-color: #f1f5f9;
-            color: #475569;
+            background-color: #111827;
+            color: #34d399;
             padding: 4px 12px;
-            border-radius: 20px;
+            border-radius: 6px;
             font-size: 0.85rem;
             margin-right: 6px;
             margin-bottom: 8px;
-            border: 1px solid #e2e8f0;
-            font-weight: 500;
+            border: 1px solid #064e3b;
+            font-weight: 600;
+        }
+
+        /* Competitive Coding Badge Layout */
+        .profile-badge-link {
+            display: inline-flex;
+            align-items: center;
+            background-color: #111827;
+            border: 1px solid #34d399;
+            color: #34d399;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-decoration: none;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            transition: all 0.2s ease;
+        }
+        .profile-badge-link:hover {
+            background-color: #34d399;
+            color: #030712;
+            box-shadow: 0 0 10px rgba(52, 211, 153, 0.4);
         }
 
         /* Inline View Certificate Button Styling */
         .inline-view-btn {
-            background-color: #f3e8ff;
-            border: 1px solid #d8b4fe;
-            color: #6b21a8;
-            padding: 3px 10px;
+            background-color: #111827;
+            border: 1px solid #f472b6;
+            color: #f472b6;
+            padding: 4px 12px;
             font-size: 0.8rem;
-            font-weight: 600;
-            border-radius: 4px;
+            font-weight: 700;
+            border-radius: 6px;
             cursor: pointer;
             margin-left: 8px;
             transition: all 0.2s ease;
         }
         .inline-view-btn:hover {
-            background-color: #e9d5ff;
+            background-color: #f472b6;
+            color: #030712;
+            box-shadow: 0 0 10px rgba(244, 114, 182, 0.4);
         }
 
         /* Pop-up Modal Window Setup */
@@ -356,29 +408,29 @@
             width: 100%; 
             height: 100%; 
             overflow: auto; 
-            background-color: rgba(15, 23, 42, 0.6);
+            background-color: rgba(3, 7, 18, 0.85);
             backdrop-filter: blur(4px);
             align-items: center;
             justify-content: center;
         }
         .modal-content {
-            background-color: #ffffff;
+            background-color: #0b0f19;
             margin: auto;
             padding: 30px;
-            border-radius: 16px;
+            border-radius: 12px;
             width: 90%;
             max-width: 550px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
             position: relative;
-            border: 1px solid #e2e8f0;
-            animation: modalFadeIn 0.3s ease;
+            border: 1px solid #1f2937;
+            animation: modalFadeIn 0.2s ease-out;
         }
         @keyframes modalFadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
+            from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
         .close-modal {
-            color: #94a3b8;
+            color: #9ca3af;
             position: absolute;
             top: 15px;
             right: 20px;
@@ -388,42 +440,43 @@
             transition: color 0.2s;
         }
         .close-modal:hover {
-            color: #475569;
+            color: #ffffff;
         }
         .cert-display-box {
-            border: 2px dashed #d8b4fe;
-            background-color: #faf5ff;
+            border: 1px dashed #1f2937;
+            background-color: #030712;
             padding: 25px;
             border-radius: 8px;
             text-align: center;
             margin-top: 15px;
         }
 
-        /* Contact Section */
+        /* Contact Section with strong vibrant framing */
         .contact-box {
-            background: white;
-            border: 2px solid #bae6fd;
+            background-color: #0b0f19;
+            border: 1px solid #ff007f; /* Sharp fluorescent pink */
             border-radius: 12px;
-            padding: 30px;
+            padding: 35px 20px;
             text-align: center;
             margin-top: 40px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+            box-shadow: 0 4px 20px rgba(255, 0, 127, 0.15);
         }
         .contact-btn {
             display: inline-block;
-            background-color: #0284c7;
+            background-color: #ff007f;
             color: white;
             text-decoration: none;
-            padding: 12px 28px;
+            padding: 12px 30px;
             border-radius: 8px;
-            font-weight: 600;
+            font-weight: 700;
             margin-top: 15px;
-            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.2);
+            box-shadow: 0 4px 12px rgba(255, 0, 127, 0.3);
             transition: background-color 0.2s, transform 0.2s;
         }
         .contact-btn:hover {
-            background-color: #0369a1;
+            background-color: #db2777;
             transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(255, 0, 127, 0.5);
         }
     </style>
 </head>
@@ -436,7 +489,11 @@
             <div class="profile-info">
                 <h1 class="profile-title">Kamal Kant Thakur</h1>
                 <p class="profile-subtitle">Artificial Intelligence & Machine Learning Student</p>
-                <p class="profile-meta">Kanpur, India | kamalkantthakur0023@gmail.com</p>
+                <div class="profile-meta">
+                    <span>📍 Kanpur, India</span>
+                    <span>✉️ <a href="mailto:kamalkantthakur0023@gmail.com">kamalkantthakur0023@gmail.com</a></span>
+                    <span>💻 <a href="https://github.com/kamalkant2303" target="_blank">GitHub Profile</a></span>
+                </div>
             </div>
         </header>
 
@@ -465,7 +522,7 @@
                                 
                                 <div id="card-aitd" class="institution-card">
                                     <div class="institution-flex">
-                                        <img src="aitd.jpg" alt="AITD Kanpur Campus Front Gate" class="institution-img" onerror="this.src='https://images.unsplash.com/photo-1562774053-701939374585?w=400&q=80'">
+                                        <img src="aitd.jpg" alt="AITD Kanpur Campus" class="institution-img" onerror="this.src='https://images.unsplash.com/photo-1562774053-701939374585?w=400&q=80'">
                                         <div class="institution-info">
                                             <h4>Dr. Ambedkar Institute of Technology for Divyangjan</h4>
                                             <p>Established in 1997 by the Department of Technical Education, Government of Uttar Pradesh, AITD is an autonomous premier institution located at Awadhpuri, Kalyanpur, Kanpur. The institute provides highly specialized research laboratories, focusing on computing tracks, machine learning clusters, and modern software engineering models.</p>
@@ -481,7 +538,7 @@
 
                                 <div id="card-aktu" class="institution-card">
                                     <div class="institution-flex">
-                                        <img src="aktu.jpg" alt="AKTU Lucknow Campus Administration Block" class="institution-img" onerror="this.src='https://images.unsplash.com/photo-1627556704290-2b1f5853ff78?w=400&q=80'">
+                                        <img src="aktu.jpg" alt="AKTU Lucknow Campus" class="institution-img" onerror="this.src='https://images.unsplash.com/photo-1627556704290-2b1f5853ff78?w=400&q=80'">
                                         <div class="institution-info">
                                             <h4>Dr. A.P.J. Abdul Kalam Technical University</h4>
                                             <p>Formerly known as Uttar Pradesh Technical University (UPTU), AKTU is a premier public university specializing in technical education, headquartered at Sec-11, Jankipuram Extension, Lucknow. It regulates standardized syllabi guidelines, technological frameworks, and comprehensive engineering curriculum tracking structures.</p>
@@ -501,7 +558,7 @@
                                 
                                 <div id="card-lps" class="institution-card">
                                     <div class="institution-flex">
-                                        <img src="lps.jpg" alt="Lucknow Public School Ashiyana Campus" class="institution-img" onerror="this.src='https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400&q=80'">
+                                        <img src="lps.jpg" alt="Lucknow Public School" class="institution-img" onerror="this.src='https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400&q=80'">
                                         <div class="institution-info">
                                             <h4>Lucknow Public School</h4>
                                             <p>Founded by prominent educator Dr. C.P. Singh, the Sector D, Ashiyana branch in Lucknow is a flagship school renowned for academic excellence under CBSE certification. Features vast educational layouts, state-of-the-art computer labs, and consistently produces stellar top-tier regional board performance metrics.</p>
@@ -509,9 +566,9 @@
                                     </div>
                                 </div>
 
-                                <div style="margin: 15px 0; background: #f8fafc; padding: 12px; border-radius: 6px; border: 1px dashed #cbd5e1;">
-                                    <div style="margin-bottom: 8px;"><strong>Intermediate (Class XII):</strong> 66.4%</div>
-                                    <div style="margin-bottom: 8px;"><strong>High School (Class X):</strong> 94.8%</div>
+                                <div style="margin: 15px 0; background: #030712; padding: 14px; border-radius: 8px; border: 1px dashed #1f2937;">
+                                    <div style="margin-bottom: 8px; color: #ffffff;"><strong>Intermediate (Class XII):</strong> <span style="color:#00f5ff; font-weight:700;">66.4%</span></div>
+                                    <div style="margin-bottom: 0px; color: #ffffff;"><strong>High School (Class X):</strong> <span style="color:#00f5ff; font-weight:700;">94.8%</span></div>
                                 </div>
 
                                 <div style="margin-top: 12px; display: flex; gap: 12px; flex-wrap: wrap;">
@@ -556,10 +613,10 @@
                                 
                                 <div id="card-meera" class="institution-card">
                                     <div class="institution-flex">
-                                        <img src="stmeera.jpg" alt="St. Meera's Inter College Campus" class="institution-img" onerror="this.src='https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&q=80'">
+                                        <img src="stmeera.jpg" alt="St. Meera's Inter College" class="institution-img" onerror="this.src='https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&q=80'">
                                         <div class="institution-info">
                                             <h4>St. Meera's Inter College</h4>
-                                            <p>A well-known educational pillar situated at Hind Nagar, Lucknow. It establishes primary scholastic logic foundations, focusing on early mathematical building-blocks, writing tracking disciplines, and language capabilities.</p>
+                                            <p>A respected local institution situated at Hind Nagar, Lucknow. It provides solid fundamental education structures, focusing on early mathematical building-blocks, writing tracking disciplines, and language capabilities.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -572,35 +629,40 @@
 
             <div class="resume-section" id="sec-skills">
                 <button class="thumbnail-btn">
-                    <span>⚡ Technical & Soft Skills</span>
+                    <span>⚡ Skills & Coding Profiles</span>
                     <span class="chevron">❯</span>
                 </button>
                 <div class="panel">
                     <div class="panel-inner">
                         <div class="skill-group">
-                            <h4>Core Skills</h4>
+                            <h4>Competitive Programming Matrices</h4>
+                            <a href="https://leetcode.com/yourusername" target="_blank" class="profile-badge-link">🚀 LeetCode Profile</a>
+                            <a href="https://auth.geeksforgeeks.org/user/yourusername" target="_blank" class="profile-badge-link">🟢 GeeksforGeeks</a>
+                        </div>
+                        <div class="skill-group">
+                            <h4>Core Skills & Data Alignment</h4>
                             <span class="badge">RDBMS</span>
                             <span class="badge">Project Management</span>
                         </div>
                         <div class="skill-group">
-                            <h4>Domain Skills</h4>
+                            <h4>Domain Frameworks</h4>
                             <span class="badge">Software Engineering</span>
-                            <span class="badge">Data Structuring</span>
+                            <span class="badge">Data Structuring (DSA)</span>
                         </div>
                         <div class="skill-group">
-                            <h4>Tools & Technology</h4>
+                            <h4>Languages & Tools</h4>
                             <span class="badge">Python</span>
                             <span class="badge">SQL</span>
-                            <span class="badge">C</span>
+                            <span class="badge">C / C++ Foundations</span>
                         </div>
                         <div class="skill-group">
-                            <h4>Soft Skills</h4>
-                            <span class="badge">Leadership</span>
-                            <span class="badge">Discipline</span>
-                            <span class="badge">Time Management</span>
-                            <span class="badge">Adaptability</span>
-                            <span class="badge">Team Work</span>
-                            <span class="badge">Problem Solving</span>
+                            <h4>Soft Skills Architecture</h4>
+                            <span class="badge" style="color:#f472b6; border-color:#e11d48;">Leadership</span>
+                            <span class="badge" style="color:#f472b6; border-color:#e11d48;">Discipline</span>
+                            <span class="badge" style="color:#f472b6; border-color:#e11d48;">Time Management</span>
+                            <span class="badge" style="color:#f472b6; border-color:#e11d48;">Adaptability</span>
+                            <span class="badge" style="color:#f472b6; border-color:#e11d48;">Team Work</span>
+                            <span class="badge" style="color:#f472b6; border-color:#e11d48;">Problem Solving</span>
                         </div>
                     </div>
                 </div>
@@ -608,7 +670,7 @@
 
             <div class="resume-section" id="sec-projects">
                 <button class="thumbnail-btn">
-                    <span>🚀 Key Projects</span>
+                    <span>🚀 Technical Project Repositories</span>
                     <span class="chevron">❯</span>
                 </button>
                 <div class="panel">
@@ -623,11 +685,6 @@
                             <div class="item-sub">Data Privacy & Encryption Tool</div>
                             <p>Engineered an encoding engine specialized in programmatic data protection operations through algorithmic mathematical encryption configurations.</p>
                         </div>
-                        <div class="project-item">
-                            <div class="item-header">Intra-College Engagement Network</div>
-                            <div class="item-sub">Social Platform Concept</div>
-                            <p>Designed structural flows for a dynamic web workspace allowing synchronous interaction patterns spanning standard learners, instructional faculty, and university alumni networks.</p>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -639,34 +696,34 @@
                 </button>
                 <div class="panel">
                     <div class="panel-inner">
-                        <h4 style="margin-bottom: 8px; color:#0f172a;">Courses & Verified Credentials</h4>
-                        <ul>
-                            <li>Introduction to Generative AI — Harvard University</li>
-                            <li>Introduction to Generative AI — Google Cloud</li>
-                            <li>AI Hands-on Development Deployment Specialization — Qualcomm Technologies</li>
-                            <li>
+                        <h4 style="margin-bottom: 12px; color:#ffffff;">Courses & Verified Credentials</h4>
+                        <ul style="margin-left: 20px; margin-bottom: 20px;">
+                            <li style="margin-bottom: 8px;">Introduction to Generative AI — Harvard University</li>
+                            <li style="margin-bottom: 8px;">Introduction to Generative AI — Google Cloud</li>
+                            <li style="margin-bottom: 8px;">AI Hands-on Development Deployment Specialization — Qualcomm Technologies</li>
+                            <li style="margin-bottom: 12px;">
                                 Certification of completion of Project Management course from Alison
                                 <button class="inline-view-btn" onclick="openCertModal('alison')">🔍 View Certificate</button>
                             </li>
-                            <li>
+                            <li style="margin-bottom: 8px;">
                                 Certification of completion of Project Management Assessment from Learn Tube
                                 <button class="inline-view-btn" onclick="openCertModal('learntube')">🔍 View Certificate</button>
                             </li>
                         </ul>
 
-                        <h4 style="margin-top: 25px; margin-bottom: 8px; color:#0f172a;">Extracurricular Activities & Leadership</h4>
-                        <ul>
-                            <li><strong>Fest Management Executive:</strong> Actively coordinated physical logistical structures, commercial sponsorship acquisitions, and comprehensive on-site discipline protocols across 1st, 2nd, and 3rd-year university fests.</li>
-                            <li><strong>Institutional Delegate:</strong> Formally represented the engineering division at corporate functions Hosted by The Institute of Engineers (India).</li>
-                            <li><strong>National Esports Competitor:</strong> Competed across complex strategic tiers at regional frameworks, securing multiple individual and co-op tactical multi-player structural titles.</li>
+                        <h4 style="margin-top: 25px; margin-bottom: 12px; color:#ffffff;">Extracurricular Activities & Leadership</h4>
+                        <ul style="margin-left: 20px;">
+                            <li style="margin-bottom: 8px;"><strong style="color:#f472b6;">Fest Management Executive:</strong> Actively coordinated physical logistical structures, commercial sponsorship acquisitions, and comprehensive on-site discipline protocols across 1st, 2nd, and 3rd-year university fests.</li>
+                            <li style="margin-bottom: 8px;"><strong style="color:#f472b6;">Institutional Delegate:</strong> Formally represented the engineering division at corporate functions Hosted by The Institute of Engineers (India).</li>
+                            <li style="margin-bottom: 8px;"><strong style="color:#f472b6;">National Esports Competitor:</strong> Competed across complex strategic tiers at regional frameworks, securing multiple individual and co-op tactical multi-player structural titles.</li>
                         </ul>
                     </div>
                 </div>
             </div>
 
             <div class="contact-box">
-                <h3 style="color:#0c4a6e; margin-bottom:8px;">Let's Connect</h3>
-                <p>Have an interesting project or opening? Drop a message straight into my inbox.</p>
+                <h3 style="color:#ffffff; font-size:1.5rem; margin-bottom:8px;">Let's Connect</h3>
+                <p style="color: #9ca3af;">Have an interesting project or placement opportunity? Drop a message straight into my inbox.</p>
                 <a href="mailto:kamalkantthakur0023@gmail.com" class="contact-btn">Send an Email</a>
             </div>
         </main>
@@ -675,7 +732,7 @@
     <div id="certModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeCertModal()">&times;</span>
-            <h3 id="modalTitle" style="color: #6b21a8; margin-bottom: 5px;">Certificate Document Viewer</h3>
+            <h3 id="modalTitle" style="color: #00f5ff; margin-bottom: 5px;">Certificate Document Viewer</h3>
             <div class="cert-display-box" id="modalBody">
                 </div>
         </div>
@@ -685,7 +742,7 @@
         // Main Accordion controls for outer thumbnails
         document.querySelectorAll('.thumbnail-btn').forEach(button => {
             button.addEventListener('click', (e) => {
-                if (e.target.closest('.toggle-marks-btn') || e.target.closest('.inline-view-btn') || e.target.closest('.edu-nav-tab') || e.target.closest('.clickable-name')) return;
+                if (e.target.closest('.toggle-marks-btn') || e.target.closest('.inline-view-btn') || e.target.closest('.edu-nav-tab') || e.target.closest('.clickable-name') || e.target.closest('.profile-badge-link')) return;
                 
                 const panel = button.nextElementSibling;
                 button.classList.toggle('active');
@@ -770,20 +827,20 @@
             if (type === 'alison') {
                 title.innerText = "Alison Verification Hub";
                 body.innerHTML = `
-                    <h2 style="color: #1e293b; margin-bottom:10px;">🏆 AWARD CERTIFICATE</h2>
-                    <p style="font-size:1.1rem; margin-bottom:15px;">Presented to: <strong>KAMAL KANT THAKUR</strong></p>
-                    <p style="margin-bottom:8px;">For successfully validating comprehensive technical skills inside:</p>
-                    <h3 style="color: #22c55e; margin-bottom:15px;">Project Management Professional Course</h3>
-                    <p style="font-size:0.85rem; color:#64748b;">Date Verified: 27th April, 2024<br>Credential Identifier: 980-20084437</p>
+                    <h2 style="color: #ffffff; margin-bottom:10px;">🏆 AWARD CERTIFICATE</h2>
+                    <p style="font-size:1.1rem; margin-bottom:15px; color:#e2e8f0;">Presented to: <strong>KAMAL KANT THAKUR</strong></p>
+                    <p style="margin-bottom:8px; color:#94a3b8;">For successfully validating comprehensive technical skills inside:</p>
+                    <h3 style="color: #34d399; margin-bottom:15px; font-size:1.2rem;">Project Management Professional Course</h3>
+                    <p style="font-size:0.85rem; color:#6b7280;">Date Verified: 27th April, 2024<br>Credential Identifier: 980-20084437</p>
                 `;
             } else if (type === 'learntube') {
                 title.innerText = "LearnTube.ai Assessment Registry";
                 body.innerHTML = `
-                    <h2 style="color: #1e293b; margin-bottom:10px;">🎖️ P.E.A.K.S. PLACEMENT CERTIFICATE</h2>
-                    <p style="font-size:1.1rem; margin-bottom:15px;">Presented to: <strong>KAMAL KANT THAKUR</strong></p>
-                    <p style="margin-bottom:8px;">For structural competency excellence tracking across:</p>
-                    <h3 style="color: #3b82f6; margin-bottom:15px;">Real Job Scenario Project Management Assessment</h3>
-                    <p style="font-size:0.85rem; color:#64748b;">Issue Date: June 14, 2026<br>Evaluation Registry ID: DJA-B-1-2635535-0</p>
+                    <h2 style="color: #ffffff; margin-bottom:10px;">🎖️ P.E.A.K.S. PLACEMENT CERTIFICATE</h2>
+                    <p style="font-size:1.1rem; margin-bottom:15px; color:#e2e8f0;">Presented to: <strong>KAMAL KANT THAKUR</strong></p>
+                    <p style="margin-bottom:8px; color:#94a3b8;">For structural competency excellence tracking across:</p>
+                    <h3 style="color: #38bdf8; margin-bottom:15px; font-size:1.2rem;">Real Job Scenario Project Management Assessment</h3>
+                    <p style="font-size:0.85rem; color:#6b7280;">Issue Date: June 14, 2026<br>Evaluation Registry ID: DJA-B-1-2635535-0</p>
                 `;
             }
             modal.style.display = "flex";
@@ -801,4 +858,4 @@
         }
     </script>
 </body>
-</html>S
+</html>
