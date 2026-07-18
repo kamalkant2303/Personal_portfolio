@@ -131,7 +131,7 @@
             transform: rotate(90deg);
         }
 
-        /* Content Panel - Fixed height issue with modern transitions */
+        /* Content Panel */
         .panel {
             background-color: #ffffff;
             max-height: 0;
@@ -145,12 +145,93 @@
             color: #334155;
         }
 
-        .panel-inner ul {
-            margin-left: 20px;
-            margin-bottom: 15px;
+        /* Sub-Navigation Blocks for Schooling and Graduation */
+        .edu-nav-container {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 12px;
         }
-        .panel-inner li {
-            margin-bottom: 12px;
+        .edu-nav-tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-weight: 700;
+            color: #475569;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .edu-nav-tab:hover {
+            background-color: #f1f5f9;
+            color: #0f172a;
+        }
+        .edu-nav-tab.active-tab {
+            background-color: #0284c7;
+            color: #ffffff;
+            border-color: #0284c7;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.15);
+        }
+
+        /* Tab Content Dynamic Containers */
+        .edu-tab-content {
+            display: none;
+            animation: fadeInTab 0.4s ease;
+        }
+        .edu-tab-content.active-content {
+            display: block;
+        }
+        @keyframes fadeInTab {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Clickable Institution Names */
+        .clickable-name {
+            color: #0284c7;
+            cursor: pointer;
+            text-decoration: underline dotted;
+            transition: color 0.2s ease;
+        }
+        .clickable-name:hover {
+            color: #0369a1;
+        }
+
+        /* Interactive Institution Info Card Overlay */
+        .institution-card {
+            display: none;
+            background-color: #f8fafc;
+            border: 1px solid #bae6fd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            animation: fadeInTab 0.3s ease;
+        }
+        .institution-flex {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .institution-img {
+            width: 130px;
+            height: 130px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            background-color: #e2e8f0;
+        }
+        .institution-info {
+            flex: 1;
+            min-width: 200px;
+            font-size: 0.9rem;
+        }
+        .institution-info h4 {
+            color: #0c4a6e;
+            margin-bottom: 4px;
         }
 
         .edu-item, .project-item {
@@ -185,12 +266,11 @@
             background-color: #f1f5f9;
             border: 1px solid #cbd5e1;
             color: #334155;
-            padding: 5px 12px;
+            padding: 6px 14px;
             font-size: 0.8rem;
             font-weight: 600;
             border-radius: 6px;
             cursor: pointer;
-            margin-left: 10px;
             transition: all 0.2s ease;
             display: inline-flex;
             align-items: center;
@@ -212,7 +292,7 @@
         .marks-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 10px;
+            margin-top: 12px;
             margin-bottom: 10px;
             font-size: 0.9rem;
         }
@@ -364,79 +444,128 @@
             
             <div class="resume-section" id="sec-edu">
                 <button class="thumbnail-btn">
-                    <span>🎓 Education</span>
+                    <span>🎓 Education History</span>
                     <span class="chevron">❯</span>
                 </button>
                 <div class="panel">
                     <div class="panel-inner">
-                        <div class="edu-item">
-                            <div class="item-header">
-                                <span>B.Tech in CSE (AIML)</span>
-                                <span>2023 - Present</span>
-                            </div>
-                            <div class="item-sub">Dr. Ambedkar Institute of Technology for Divyangjan, Kanpur</div>
+                        
+                        <div class="edu-nav-container">
+                            <div class="edu-nav-tab active-tab" onclick="switchEduTab(event, 'graduation-content')">🎓 Graduation Details</div>
+                            <div class="edu-nav-tab" onclick="switchEduTab(event, 'schooling-content')">🏫 Schooling Timeline</div>
                         </div>
 
-                        <div class="edu-item">
-                            <div class="item-header">
-                                <div>
-                                    <span>Intermediate (Class XII) — 66.4%</span>
-                                    <button class="toggle-marks-btn" onclick="toggleMarks(event, 'marks12')">📊 Show Marks</button>
+                        <div id="graduation-content" class="edu-tab-content active-content">
+                            <div class="edu-item">
+                                <div class="item-header">
+                                    <span class="clickable-name" onclick="toggleInstitutionCard('card-aitd')">Dr. Ambedkar Institute of Technology for Divyangjan (AITD)</span>
+                                    <span>2023 - 2027</span>
                                 </div>
-                                <span>2022 - 2023</span>
-                            </div>
-                            <div class="item-sub">Lucknow Public School, Lucknow</div>
-                            
-                            <div id="marks12" class="marks-container">
-                                <table class="marks-table">
-                                   <thead>
-                                       <tr>
-                                           <th>Subject</th>
-                                           <th>Marks Obtained</th>
-                                           <th>Grade</th>
-                                       </tr>
-                                   </thead>
-                                   <tbody>
-                                       <tr><td>English Core</td><td>89 / 100</td><td>A2</td></tr>
-                                       <tr><td>Computer Science</td><td>82 / 100</td><td>B2</td></tr>
-                                       <tr><td>Physics</td><td>59 / 100</td><td>C2</td></tr>
-                                       <tr><td>Mathematics</td><td>51 / 100</td><td>D1</td></tr>
-                                       <tr><td>Chemistry</td><td>51 / 100</td><td>D2</td></tr>
-                                   </tbody>
-                                </table>
+                                <div class="item-sub">B.Tech in Computer Science & Engineering (AIML) | Kanpur</div>
+                                
+                                <div id="card-aitd" class="institution-card">
+                                    <div class="institution-flex">
+                                        <img src="aitd.jpg" alt="AITD Kanpur Campus Front Gate" class="institution-img" onerror="this.src='https://images.unsplash.com/photo-1562774053-701939374585?w=400&q=80'">
+                                        <div class="institution-info">
+                                            <h4>Dr. Ambedkar Institute of Technology for Divyangjan</h4>
+                                            <p>Established in 1997 by the Department of Technical Education, Government of Uttar Pradesh, AITD is an autonomous premier institution located at Awadhpuri, Kalyanpur, Kanpur. The institute provides highly specialized research laboratories, focusing on computing tracks, machine learning clusters, and modern software engineering models.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="item-header" style="margin-top: 15px;">
+                                    <span class="clickable-name" onclick="toggleInstitutionCard('card-aktu')">Dr. A.P.J. Abdul Kalam Technical University (AKTU)</span>
+                                    <span>Affiliated</span>
+                                </div>
+                                <div class="item-sub">State Technical University | Lucknow</div>
+
+                                <div id="card-aktu" class="institution-card">
+                                    <div class="institution-flex">
+                                        <img src="aktu.jpg" alt="AKTU Lucknow Campus Administration Block" class="institution-img" onerror="this.src='https://images.unsplash.com/photo-1627556704290-2b1f5853ff78?w=400&q=80'">
+                                        <div class="institution-info">
+                                            <h4>Dr. A.P.J. Abdul Kalam Technical University</h4>
+                                            <p>Formerly known as Uttar Pradesh Technical University (UPTU), AKTU is a premier public university specializing in technical education, headquartered at Sec-11, Jankipuram Extension, Lucknow. It regulates standardized syllabi guidelines, technological frameworks, and comprehensive engineering curriculum tracking structures.</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="edu-item">
-                            <div class="item-header">
-                                <div>
-                                    <span>High School (Class X) — 94.8%</span>
-                                    <button class="toggle-marks-btn" onclick="toggleMarks(event, 'marks10')">📊 Show Marks</button>
+                        <div id="schooling-content" class="edu-tab-content">
+                            <div class="edu-item">
+                                <div class="item-header">
+                                    <span class="clickable-name" onclick="toggleInstitutionCard('card-lps')">Lucknow Public School (LPS)</span>
+                                    <span>2017 - 2023</span>
                                 </div>
-                                <span>2020 - 2021</span>
+                                <div class="item-sub">Class VII to Class XII | Sector D, Lucknow</div>
+                                
+                                <div id="card-lps" class="institution-card">
+                                    <div class="institution-flex">
+                                        <img src="lps.jpg" alt="Lucknow Public School Ashiyana Campus" class="institution-img" onerror="this.src='https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400&q=80'">
+                                        <div class="institution-info">
+                                            <h4>Lucknow Public School</h4>
+                                            <p>Founded by prominent educator Dr. C.P. Singh, the Sector D, Ashiyana branch in Lucknow is a flagship school renowned for academic excellence under CBSE certification. Features vast educational layouts, state-of-the-art computer labs, and consistently produces stellar top-tier regional board performance metrics.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div style="margin: 15px 0; background: #f8fafc; padding: 12px; border-radius: 6px; border: 1px dashed #cbd5e1;">
+                                    <div style="margin-bottom: 8px;"><strong>Intermediate (Class XII):</strong> 66.4%</div>
+                                    <div style="margin-bottom: 8px;"><strong>High School (Class X):</strong> 94.8%</div>
+                                </div>
+
+                                <div style="margin-top: 12px; display: flex; gap: 12px; flex-wrap: wrap;">
+                                    <button class="toggle-marks-btn" onclick="toggleMarks(event, 'marks12')">📊 Show Class XII Marks</button>
+                                    <button class="toggle-marks-btn" onclick="toggleMarks(event, 'marks10')">📊 Show Class X Marks</button>
+                                </div>
+
+                                <div id="marks12" class="marks-container">
+                                    <table class="marks-table">
+                                       <thead><tr><th>Subject</th><th>Marks Obtained</th><th>Grade</th></tr></thead>
+                                       <tbody>
+                                           <tr><td>English Core</td><td>89 / 100</td><td>A2</td></tr>
+                                           <tr><td>Computer Science</td><td>82 / 100</td><td>B2</td></tr>
+                                           <tr><td>Physics</td><td>59 / 100</td><td>C2</td></tr>
+                                           <tr><td>Mathematics</td><td>51 / 100</td><td>D1</td></tr>
+                                           <tr><td>Chemistry</td><td>51 / 100</td><td>D2</td></tr>
+                                       </tbody>
+                                    </table>
+                                </div>
+
+                                <div id="marks10" class="marks-container">
+                                    <table class="marks-table">
+                                       <thead><tr><th>Subject</th><th>Marks Obtained</th><th>Grade</th></tr></thead>
+                                       <tbody>
+                                           <tr><td>Information Technology</td><td>97 / 100</td><td>A1</td></tr>
+                                           <tr><td>Hindi Course-A</td><td>95 / 100</td><td>A1</td></tr>
+                                           <tr><td>Mathematics Standard</td><td>95 / 100</td><td>A1</td></tr>
+                                           <tr><td>Social Science</td><td>95 / 100</td><td>A1</td></tr>
+                                           <tr><td>Science</td><td>92 / 100</td><td>A1</td></tr>
+                                           <tr><td>English Lng & Lit.</td><td>85 / 100</td><td>B1</td></tr>
+                                       </tbody>
+                                    </table>
+                                </div>
                             </div>
-                            <div class="item-sub">Lucknow Public School, Lucknow</div>
-                            
-                            <div id="marks10" class="marks-container">
-                                <table class="marks-table">
-                                   <thead>
-                                       <tr>
-                                           <th>Subject</th>
-                                           <th>Marks Obtained</th>
-                                           <th>Grade</th>
-                                       </tr>
-                                   </thead>
-                                   <tbody>
-                                       <tr><td>Information Technology</td><td>97 / 100</td><td>A1</td></tr>
-                                       <tr><td>Hindi Course-A</td><td>95 / 100</td><td>A1</td></tr>
-                                       <tr><td>Mathematics Standard</td><td>95 / 100</td><td>A1</td></tr>
-                                       <tr><td>Social Science</td><td>95 / 100</td><td>A1</td></tr>
-                                       <tr><td>Science</td><td>92 / 100</td><td>A1</td></tr>
-                                       <tr><td>English Lng & Lit.</td><td>85 / 100</td><td>B1</td></tr>
-                                   </tbody>
-                                </table>
+
+                            <div class="edu-item">
+                                <div class="item-header">
+                                    <span class="clickable-name" onclick="toggleInstitutionCard('card-meera')">St. Meera's Inter College</span>
+                                    <span>2009 - 2017</span>
+                                </div>
+                                <div class="item-sub">Class Nursery to Class VI | Hind Nagar, Lucknow</div>
+                                
+                                <div id="card-meera" class="institution-card">
+                                    <div class="institution-flex">
+                                        <img src="stmeera.jpg" alt="St. Meera's Inter College Campus" class="institution-img" onerror="this.src='https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&q=80'">
+                                        <div class="institution-info">
+                                            <h4>St. Meera's Inter College</h4>
+                                            <p>A well-known educational pillar situated at Hind Nagar, Lucknow. It establishes primary scholastic logic foundations, focusing on early mathematical building-blocks, writing tracking disciplines, and language capabilities.</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -516,11 +645,11 @@
                             <li>Introduction to Generative AI — Google Cloud</li>
                             <li>AI Hands-on Development Deployment Specialization — Qualcomm Technologies</li>
                             <li>
-                                Certification of completion of Project Management course from Alison 
+                                Certification of completion of Project Management course from Alison
                                 <button class="inline-view-btn" onclick="openCertModal('alison')">🔍 View Certificate</button>
                             </li>
                             <li>
-                                Certification of completion of Project Management Assessment from Learn Tube 
+                                Certification of completion of Project Management Assessment from Learn Tube
                                 <button class="inline-view-btn" onclick="openCertModal('learntube')">🔍 View Certificate</button>
                             </li>
                         </ul>
@@ -553,22 +682,17 @@
     </div>
 
     <script>
-        // Main Click Router handling section drawers safely
+        // Main Accordion controls for outer thumbnails
         document.querySelectorAll('.thumbnail-btn').forEach(button => {
             button.addEventListener('click', (e) => {
-                // Ignore structural expansions if click targets an inline button element
-                if (e.target.closest('.toggle-marks-btn') || e.target.closest('.inline-view-btn')) return;
+                if (e.target.closest('.toggle-marks-btn') || e.target.closest('.inline-view-btn') || e.target.closest('.edu-nav-tab') || e.target.closest('.clickable-name')) return;
                 
                 const panel = button.nextElementSibling;
-                const chevron = button.querySelector('.chevron');
-                
-                // Toggle current button's visibility status
                 button.classList.toggle('active');
                 
                 if (panel.style.maxHeight && panel.style.maxHeight !== '0px') {
                     panel.style.maxHeight = '0px';
                 } else {
-                    // Close other sections first
                     document.querySelectorAll('.panel').forEach(p => p.style.maxHeight = '0px');
                     document.querySelectorAll('.thumbnail-btn').forEach(b => b.classList.remove('active'));
                     
@@ -578,9 +702,44 @@
             });
         });
 
-        // Fixed Nesting expansion calculations for the Show Marks rows
+        // Tab content switching within the Education section drawer
+        function switchEduTab(event, targetTabId) {
+            event.stopPropagation();
+            
+            const activeSection = event.target.closest('.panel');
+            activeSection.querySelectorAll('.edu-nav-tab').forEach(tab => tab.classList.remove('active-tab'));
+            event.target.classList.add('active-tab');
+
+            activeSection.querySelectorAll('.edu-tab-content').forEach(content => content.classList.remove('active-content'));
+            const destinationContent = document.getElementById(targetTabId);
+            destinationContent.classList.add('active-content');
+
+            // Reset dynamic height boundaries instantly to avoid clip cutoffs
+            activeSection.style.maxHeight = 'none';
+            activeSection.style.maxHeight = activeSection.scrollHeight + "px";
+        }
+
+        // Toggle Institutional Info Visual Cards seamlessly
+        function toggleInstitutionCard(cardId) {
+            const card = document.getElementById(cardId);
+            const parentPanel = card.closest('.panel');
+            
+            if (card.style.display === 'block') {
+                card.style.display = 'none';
+            } else {
+                card.style.display = 'block';
+            }
+            
+            // Instantly sync parent wrapper context bounds
+            if (parentPanel) {
+                parentPanel.style.maxHeight = 'none';
+                parentPanel.style.maxHeight = parentPanel.scrollHeight + "px";
+            }
+        }
+
+        // Fully Independent Toggle Matrix for concurrent multi-table views
         function toggleMarks(event, id) {
-            event.stopPropagation(); // Prevents click from traveling out and triggering section close
+            event.stopPropagation(); 
             
             const container = document.getElementById(id);
             const btn = event.target;
@@ -588,26 +747,21 @@
             
             if (container.style.maxHeight && container.style.maxHeight !== '0px') {
                 container.style.maxHeight = '0px';
-                btn.innerText = '📊 Show Marks';
-                
-                // Readjust container dimensions after layout animation ends
-                setTimeout(() => {
-                    if (parentPanel && parentPanel.style.maxHeight !== '0px') {
-                        parentPanel.style.maxHeight = parentPanel.scrollHeight + "px";
-                    }
-                }, 300);
+                btn.innerText = id === 'marks12' ? '📊 Show Class XII Marks' : '📊 Show Class X Marks';
             } else {
                 container.style.maxHeight = container.scrollHeight + "px";
-                btn.innerText = '🙈 Hide Marks';
-                
-                // Instantly dynamically expand parent wrapper to fit the incoming table block
-                if (parentPanel) {
-                    parentPanel.style.maxHeight = (parentPanel.scrollHeight + container.scrollHeight) + "px";
-                }
+                btn.innerText = id === 'marks12' ? '🙈 Hide Class XII Marks' : '🙈 Hide Class X Marks';
             }
+            
+            // Safe universal layout recalculation loop ensuring complete presentation area
+            setTimeout(() => {
+                if (parentPanel) {
+                    parentPanel.style.maxHeight = 'none';
+                    parentPanel.style.maxHeight = parentPanel.scrollHeight + "px";
+                }
+            }, 50);
         }
 
-        // On-page modal rendering scripts mapping raw credential records safely
         function openCertModal(type) {
             const modal = document.getElementById('certModal');
             const title = document.getElementById('modalTitle');
@@ -632,7 +786,6 @@
                     <p style="font-size:0.85rem; color:#64748b;">Issue Date: June 14, 2026<br>Evaluation Registry ID: DJA-B-1-2635535-0</p>
                 `;
             }
-            
             modal.style.display = "flex";
         }
 
@@ -648,4 +801,4 @@
         }
     </script>
 </body>
-</html>
+</html>S
