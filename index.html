@@ -472,6 +472,7 @@
             margin-top: 15px;
             box-shadow: 0 4px 12px rgba(255, 0, 127, 0.3);
             transition: background-color 0.2s, transform 0.2s;
+            border: none;
         }
         .contact-btn:hover {
             background-color: #db2777;
@@ -491,7 +492,7 @@
                 <p class="profile-subtitle">Artificial Intelligence & Machine Learning Student</p>
                 <div class="profile-meta">
                     <span>📍 Kanpur, India</span>
-                    <span>✉️ <a href="mailto:kamalkantthakur0023@gmail.com">kamalkantthakur0023@gmail.com</a></span>
+                    <span>🔗 <a href="https://www.linkedin.com/in/kamal-kant-thakur-25b47b296?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank">LinkedIn Profile</a></span>
                     <span>💻 <a href="https://github.com/kamalkant2303" target="_blank">GitHub Profile</a></span>
                 </div>
             </div>
@@ -636,8 +637,7 @@
                     <div class="panel-inner">
                         <div class="skill-group">
                             <h4>Competitive Programming Matrices</h4>
-                            <a href="https://leetcode.com/yourusername" target="_blank" class="profile-badge-link">🚀 LeetCode Profile</a>
-                            <a href="https://auth.geeksforgeeks.org/user/yourusername" target="_blank" class="profile-badge-link">🟢 GeeksforGeeks</a>
+                            <a href="https://leetcode.com/kkxthakur" target="_blank" class="profile-badge-link">🚀 LeetCode Profile (kkxthakur)</a>
                         </div>
                         <div class="skill-group">
                             <h4>Core Skills & Data Alignment</h4>
@@ -722,9 +722,30 @@
             </div>
 
             <div class="contact-box">
-                <h3 style="color:#ffffff; font-size:1.5rem; margin-bottom:8px;">Let's Connect</h3>
-                <p style="color: #9ca3af;">Have an interesting project or placement opportunity? Drop a message straight into my inbox.</p>
-                <a href="mailto:kamalkantthakur0023@gmail.com" class="contact-btn">Send an Email</a>
+                <h3 style="color:#ffffff; font-size:1.6rem; margin-bottom:12px;">📬 Secure Message Portal</h3>
+                <p style="color: #9ca3af; margin-bottom: 20px;">Send a message directly from this website. Your contact email will be captured securely so I can respond to you.</p>
+                
+                <form action="https://api.web3forms.com/submit" method="POST" style="max-width: 500px; margin: 0 auto; text-align: left;">
+                    <input type="hidden" name="access_key" value="YOUR-WEB3FORMS-KEY-HERE">
+                    
+                    <label style="display: block; margin-bottom: 5px; font-weight: 700; font-size: 0.9rem; color: #00f5ff;">Your Full Name</label>
+                    <input type="text" name="name" required style="width: 100%; padding: 10px; background-color: #030712; border: 1px solid #1f2937; border-radius: 6px; color: #ffffff; margin-bottom: 15px;">
+
+                    <label style="display: block; margin-bottom: 5px; font-weight: 700; font-size: 0.9rem; color: #00f5ff;">Your Email Address</label>
+                    <input type="email" name="email" required style="width: 100%; padding: 10px; background-color: #030712; border: 1px solid #1f2937; border-radius: 6px; color: #ffffff; margin-bottom: 15px;">
+
+                    <label style="display: block; margin-bottom: 5px; font-weight: 700; font-size: 0.9rem; color: #00f5ff;">Purpose of Message</label>
+                    <select name="purpose" style="width: 100%; padding: 10px; background-color: #030712; border: 1px solid #1f2937; border-radius: 6px; color: #ffffff; margin-bottom: 15px; font-weight: 600;">
+                        <option value="General Placement Inquiry">💼 Placement / Hiring Opportunity</option>
+                        <option value="Academic Mark Sheet Request">📊 Request Official Mark Sheet Access</option>
+                        <option value="Technical Collaboration">🚀 Project Collaboration</option>
+                    </select>
+
+                    <label style="display: block; margin-bottom: 5px; font-weight: 700; font-size: 0.9rem; color: #00f5ff;">Message Body</label>
+                    <textarea name="message" required rows="4" style="width: 100%; padding: 10px; background-color: #030712; border: 1px solid #1f2937; border-radius: 6px; color: #ffffff; margin-bottom: 15px; resize: vertical;"></textarea>
+
+                    <button type="submit" class="contact-btn" style="width: 100%; margin-top: 5px; cursor: pointer;">Submit Secure Message</button>
+                </form>
             </div>
         </main>
     </div>
