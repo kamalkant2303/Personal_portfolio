@@ -5,50 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact & Message Portal | Kamal Kant Thakur</title>
     
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://accounts.google.com; style-src 'self' 'unsafe-inline'; connect-src 'self' https://api.web3forms.com; img-src 'self' data: https:; frame-src 'self' https://accounts.google.com;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://emailvalidation.abstractapi.com https://api.web3forms.com; img-src 'self' data: https:;">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
 
     <link rel="stylesheet" href="style.css">
     <script src="security.js"></script>
-    
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body style="background-color: #030712; color: #f3f4f6; margin: 0; padding: 10px;">
     <div class="container" style="max-width: 800px; padding: 10px;">
         <div class="contact-box" style="margin-top: 0;">
             <h3 style="color:#ffffff; font-size:1.5rem; margin-bottom:12px; text-align: center;">📬 Secure Message Portal</h3>
-            <p id="portal-desc" style="color: #9ca3af; margin-bottom: 20px; text-align: center; font-size: 0.9rem;">
-                Authenticate with Google once to verify your identity. Your verified email will be saved on this device for future messages.
+            <p style="color: #9ca3af; margin-bottom: 20px; text-align: center; font-size: 0.9rem;">
+                Send a direct message from here. Your contact email address will be verified live for mailbox existence before sending.
             </p>
             
             <div id="form-result" style="display: none; padding: 12px; margin-bottom: 15px; border-radius: 6px; text-align: center; font-weight: 700; font-size: 0.9rem;"></div>
-
-            <div id="verified-user-badge" style="display:none; background-color: #064e3b; border: 1px solid #059669; color: #34d399; padding: 12px; border-radius: 8px; margin-bottom: 20px; text-align: center; font-weight: 700; font-size: 0.9rem;">
-                🟢 Device Identity Verified: <span id="verified-email-text" style="color:#ffffff;"></span>
-                <br>
-                <button type="button" onclick="clearSavedIdentity()" style="background:none; border:none; color:#f472b6; text-decoration:underline; cursor:pointer; font-size:0.75rem; margin-top:6px;">(Switch or Reset Google Account)</button>
-            </div>
-
-            <div id="google-auth-container" style="margin-bottom: 25px; text-align: center; background-color: #0b0f19; border: 1px solid #1f2937; padding: 20px; border-radius: 10px;">
-                <p style="color: #00f5ff; font-weight: 700; font-size: 0.85rem; margin-bottom: 12px;">STEP 1: Verify Identity with Google</p>
-                <div id="g_id_onload"
-                    data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
-                    data-callback="handleCredentialResponse"
-                    data-auto_prompt="false">
-                </div>
-                <div class="g_id_signin" data-type="standard" data-size="large" data-theme="dark" data-text="continue_with" data-shape="rectangular" data-logo_alignment="left" style="display: inline-block;"></div>
-            </div>
 
             <form id="contact-form" autocomplete="off" style="max-width: 500px; margin: 0 auto; text-align: left;">
                 <input type="hidden" name="access_key" value="8b29131d-a3b4-4c47-8b89-f4ee5abe9704">
                 
                 <input type="text" name="_website_hp" style="display:none !important;" tabindex="-1" autocomplete="off">
 
-                <input type="hidden" id="verified_email_input" name="email" value="">
-
                 <label style="display: block; margin-bottom: 5px; font-weight: 700; font-size: 0.85rem; color: #00f5ff;">Your Full Name</label>
-                <input type="text" id="sender_name" name="name" required maxlength="60" style="width: 100%; padding: 10px; background-color: #030712; border: 1px solid #1f2937; border-radius: 6px; color: #ffffff; margin-bottom: 15px; box-sizing: border-box;">
+                <input type="text" name="name" required maxlength="60" style="width: 100%; padding: 10px; background-color: #030712; border: 1px solid #1f2937; border-radius: 6px; color: #ffffff; margin-bottom: 15px; box-sizing: border-box;">
+
+                <label style="display: block; margin-bottom: 5px; font-weight: 700; font-size: 0.85rem; color: #00f5ff;">Your Email Address</label>
+                <input type="email" name="email" required maxlength="100" placeholder="e.g. name@domain.com" style="width: 100%; padding: 10px; background-color: #030712; border: 1px solid #1f2937; border-radius: 6px; color: #ffffff; margin-bottom: 15px; box-sizing: border-box;">
 
                 <label style="display: block; margin-bottom: 5px; font-weight: 700; font-size: 0.85rem; color: #00f5ff;">Purpose of Message</label>
                 <select name="purpose" style="width: 100%; padding: 10px; background-color: #030712; border: 1px solid #1f2937; border-radius: 6px; color: #ffffff; margin-bottom: 15px; font-weight: 600; box-sizing: border-box;">
@@ -78,121 +61,104 @@
             result.textContent = text;
         }
 
-        // Decode JWT token payload from Google Sign-In
-        function parseJwt(token) {
-            try {
-                const base64Url = token.split('.')[1];
-                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-                const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-                }).join(''));
-                return JSON.parse(jsonPayload);
-            } catch (e) {
-                return null;
-            }
-        }
-
-        // Apply Google Verified State to the UI & Form
-        function applyVerifiedState(email, name = "") {
-            document.getElementById('verified_email_input').value = email;
-            document.getElementById('verified-email-text').textContent = email;
-            document.getElementById('verified-user-badge').style.display = 'block';
-            document.getElementById('google-auth-container').style.display = 'none';
-            document.getElementById('portal-desc').textContent = "Your identity is prerecorded on this device. Type your message below to send directly to my inbox.";
-
-            if (name && !document.getElementById('sender_name').value) {
-                document.getElementById('sender_name').value = name;
-            }
-        }
-
-        // Callback function triggered on "Continue with Google"
-        function handleCredentialResponse(response) {
-            const responsePayload = parseJwt(response.credential);
-            if (responsePayload && responsePayload.email) {
-                const userEmail = responsePayload.email;
-                const userName = responsePayload.name || "";
-
-                // Prerecord verified identity permanently on this browser/device
-                localStorage.setItem('portfolio_google_email', userEmail);
-                if (userName) {
-                    localStorage.setItem('portfolio_google_name', userName);
-                }
-
-                applyVerifiedState(userEmail, userName);
-                showStatus("✅ Google Account Prerecorded: " + userEmail, false);
-            }
-        }
-
-        // Clear saved memory if user wants to reset their device record
-        function clearSavedIdentity() {
-            localStorage.removeItem('portfolio_google_email');
-            localStorage.removeItem('portfolio_google_name');
-            document.getElementById('verified_email_input').value = "";
-            document.getElementById('verified-user-badge').style.display = 'none';
-            document.getElementById('google-auth-container').style.display = 'block';
-            document.getElementById('portal-desc').textContent = "Authenticate with Google once to verify your identity. Your verified email will be saved on this device for future messages.";
-            showStatus("⚠️ Local memory cleared. Please sign in with Google again.", true);
-        }
-
-        // Automatic Check on Page Load: Check if device already has a prerecorded email
-        window.addEventListener('DOMContentLoaded', () => {
-            const savedEmail = localStorage.getItem('portfolio_google_email');
-            const savedName = localStorage.getItem('portfolio_google_name') || "";
-
-            if (savedEmail) {
-                applyVerifiedState(savedEmail, savedName);
-            }
-        });
-
         form.addEventListener('submit', async function(e) {
             e.preventDefault();
 
-            // MANDATORY CHECK: Ensure user has a verified email recorded
-            const verifiedEmail = document.getElementById('verified_email_input').value.trim();
-            if (!verifiedEmail) {
-                showStatus("⚠️ Authentication Required: Please click 'Continue with Google' above before submitting a message.");
-                return;
-            }
-            
-            // SECURITY CHECK 1: Honeypot Trap Check
+            // 1. SECURITY: Honeypot Check
             if (window.PortfolioSecurity && PortfolioSecurity.isHoneypotTriggered(form)) {
                 showStatus("❌ Security Violation: Automated submission blocked.");
                 return;
             }
 
-            // SECURITY CHECK 2: Time-Based Bot Check (< 3 seconds)
+            // 2. SECURITY: Time-Based Bot Check (< 3s)
             if (window.PortfolioSecurity && PortfolioSecurity.isSubmittedTooFast(3)) {
                 showStatus("⚠️ Submission too fast: Please take a moment before submitting.");
                 return;
             }
 
-            // SECURITY CHECK 3: Rate Limiting Check (60 Seconds Cooldown)
+            // 3. SECURITY: Rate Limiting Cooldown (60s)
             const rateCheck = window.PortfolioSecurity.checkRateLimit('contact_form', 60);
             if (!rateCheck.allowed) {
                 showStatus(`⚠️ Rate Limit Exceeded: Please wait ${rateCheck.remainingTime} seconds before sending another message.`);
                 return;
             }
 
-            // SECURITY CHECK 4: Input Extraction & XSS Sanitization
+            // 4. SANITIZATION
             const rawName = form.querySelector('input[name="name"]').value;
+            const rawEmail = form.querySelector('input[name="email"]').value;
             const rawMessage = form.querySelector('textarea[name="message"]').value;
 
-            const nameInput = window.PortfolioSecurity.sanitizeInput(rawName);
-            const messageInput = window.PortfolioSecurity.sanitizeInput(rawMessage);
+            const nameInput = window.PortfolioSecurity ? window.PortfolioSecurity.sanitizeInput(rawName) : rawName.trim();
+            const emailInput = window.PortfolioSecurity ? window.PortfolioSecurity.sanitizeInput(rawEmail) : rawEmail.trim();
+            const messageInput = window.PortfolioSecurity ? window.PortfolioSecurity.sanitizeInput(rawMessage) : rawMessage.trim();
 
-            submitBtn.textContent = "Sending Message...";
+            // 5. REGEX FORMAT CHECK
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailPattern.test(emailInput)) {
+                showStatus("⚠️ Invalid email format: Please enter a valid address (e.g., name@domain.com).");
+                return;
+            }
+
+            submitBtn.textContent = "Verifying Mailbox Existence...";
             submitBtn.disabled = true;
+
+            // 6. ABSTRACT API LIVE EXISTENCE VERIFICATION
+            let isEmailValid = false;
+            try {
+                const abstractApiKey = "b144d77470eb4500af0b549d3a4ba093";
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 7000);
+
+                const response = await fetch(`https://emailvalidation.abstractapi.com/v1/?api_key=${abstractApiKey}&email=${encodeURIComponent(emailInput)}`, { signal: controller.signal });
+                clearTimeout(timeoutId);
+
+                if (response.ok) {
+                    const data = await response.json();
+
+                    // Multi-point verification checks:
+                    const isFormatOk = data.is_valid_format ? data.is_valid_format.value : true;
+                    const isMxFound = data.is_mx_found ? data.is_mx_found.value : true;
+                    const isSmtpValid = data.is_smtp_valid ? data.is_smtp_valid.value : true;
+                    const deliverability = data.deliverability || "UNKNOWN";
+
+                    if (!isFormatOk) {
+                        showStatus("⚠️ Invalid email format.");
+                    } else if (!isMxFound) {
+                        showStatus("⚠️ Non-existing domain: The domain for this email address has no mail servers.");
+                    } else if (deliverability === "UNDELIVERABLE" || isSmtpValid === false) {
+                        showStatus("⚠️ Non-existing email: This specific email address does not exist on mail servers.");
+                    } else {
+                        isEmailValid = true; // Email verified successfully!
+                    }
+                } else {
+                    // API quota exceeded or service unavailable — allow submit with warning
+                    console.warn("Abstract API returned status:", response.status);
+                    isEmailValid = true; 
+                }
+            } catch (err) {
+                console.warn("Abstract API lookup skipped or timed out:", err);
+                isEmailValid = true; // Fallback so legitimate users aren't blocked if API goes down
+            }
+
+            if (!isEmailValid) {
+                submitBtn.textContent = "Submit Message";
+                submitBtn.disabled = false;
+                return; // Stop submission if email verification failed
+            }
+
+            // 7. WEB3FORMS DIRECT SUBMISSION
+            submitBtn.textContent = "Sending Message...";
 
             const payload = {
                 access_key: "8b29131d-a3b4-4c47-8b89-f4ee5abe9704",
                 name: nameInput,
-                email: verifiedEmail, // Verified Google email from device memory
+                email: emailInput,
                 purpose: form.querySelector('select[name="purpose"]').value,
                 message: messageInput
             };
 
             try {
-                const response = await fetch('https://api.web3forms.com/submit', {
+                const res = await fetch('https://api.web3forms.com/submit', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -201,13 +167,11 @@
                     body: JSON.stringify(payload)
                 });
 
-                let jsonRes = await response.json();
-                if (response.status === 200) {
-                    window.PortfolioSecurity.updateRateLimit('contact_form');
-                    showStatus("✅ Message sent successfully using verified email: " + verifiedEmail, false);
+                let jsonRes = await res.json();
+                if (res.status === 200) {
+                    if (window.PortfolioSecurity) window.PortfolioSecurity.updateRateLimit('contact_form');
+                    showStatus("✅ Message sent successfully! I will reply to your email soon.", false);
                     form.reset();
-                    // Restore verified email back into hidden input after form reset
-                    document.getElementById('verified_email_input').value = verifiedEmail;
                 } else {
                     showStatus("❌ Error: " + (jsonRes.message || "Failed to send message."));
                 }
