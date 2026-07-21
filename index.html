@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kamal Kant Thakur | Interactive Portfolio</title>
+    <title>Kamal Kant Thakur | AI & ML Engineer Portfolio</title>
     
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; frame-src 'self';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' https: data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; frame-src 'self' https:;">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
 
@@ -16,7 +16,7 @@
 
     <div class="container">
         <header>
-            <img src="passport pic.jpg" alt="Kamal Kant Thakur Profile Picture" class="profile-pic">
+            <img src="passport pic.jpg" alt="Kamal Kant Thakur Profile Picture" class="profile-pic" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80'">
             
             <div class="profile-info">
                 <h1 class="profile-title">Kamal Kant Thakur</h1>
@@ -25,10 +25,32 @@
                     <span>📍 Kanpur, India</span>
                     <span>🔗 <a href="https://www.linkedin.com/in/kamal-kant-thakur-25b47b296?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer">LinkedIn Profile</a></span>
                     <span>💻 <a href="https://github.com/kamalkant2303" target="_blank" rel="noopener noreferrer">GitHub Profile</a></span>
+                    <span>📄 <button onclick="openResumeModal()" class="resume-btn-link">View Resume</button></span>
                     <span>📬 <a href="contact.html">Send Message</a></span>
                 </div>
             </div>
         </header>
+
+        <section class="terminal-section">
+            <div class="terminal-header">
+                <div class="terminal-buttons">
+                    <span class="btn-dot close"></span>
+                    <span class="btn-dot minimize"></span>
+                    <span class="btn-dot maximize"></span>
+                </div>
+                <div class="terminal-title">kamal@portfolio-cli: ~ (Type 'help' for commands)</div>
+            </div>
+            <div class="terminal-body" id="terminal-body">
+                <div class="terminal-line"><span class="cmd-prompt">kamal@portfolio:~$</span> welcome</div>
+                <div class="terminal-response">
+                    🤖 Interactive Terminal Loaded! Type <span class="highlight">help</span> to list commands, <span class="highlight">whoami</span> for profile summary, or <span class="highlight">resume</span> to open PDF.
+                </div>
+            </div>
+            <div class="terminal-input-row">
+                <span class="cmd-prompt">kamal@portfolio:~$</span>
+                <input type="text" id="terminal-input" placeholder="Type command here..." autocomplete="off" spellcheck="false">
+            </div>
+        </section>
 
         <main class="main-content">
             
@@ -167,10 +189,20 @@
                 </button>
                 <div class="panel">
                     <div class="panel-inner">
+                        
                         <div class="skill-group">
-                            <h4>Competitive Programming Matrices</h4>
+                            <h4>Competitive Programming Profiles</h4>
                             <a href="https://leetcode.com/kkxthakur" target="_blank" rel="noopener noreferrer" class="profile-badge-link">🚀 LeetCode Profile (kkxthakur)</a>
                         </div>
+
+                        <div class="skill-group" style="margin-top: 15px;">
+                            <h4>Live Activity Metrics</h4>
+                            <div class="stats-badge-flex">
+                                <img src="https://leetcode-stats-api.herokuapp.com/kkxthakur" alt="LeetCode Live Stats for kkxthakur" class="stats-card-img" onerror="this.style.display='none'">
+                                <img src="https://github-readme-stats.vercel.app/api?username=kamalkant2303&show_icons=true&theme=dark&hide_border=true" alt="GitHub Live Stats for kamalkant2303" class="stats-card-img" onerror="this.style.display='none'">
+                            </div>
+                        </div>
+
                         <div class="skill-group">
                             <h4>Core Skills & Data Alignment</h4>
                             <span class="badge">RDBMS</span>
@@ -263,7 +295,7 @@
     <div id="certModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeCertModal()">&times;</span>
-            <h3 id="modalTitle" style="color: #00f5ff; margin-bottom: 5px;">Certificate Document Viewer</h3>
+            <h3 id="modalTitle" style="color: #00f5ff; margin-bottom: 10px;">Document Viewer</h3>
             <div class="cert-display-box" id="modalBody"></div>
         </div>
     </div>
