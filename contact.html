@@ -17,7 +17,7 @@
         <div class="contact-box" style="margin-top: 0;">
             <h3 style="color:#ffffff; font-size:1.5rem; margin-bottom:12px; text-align: center;">📬 Secure Message Portal</h3>
             <p style="color: #9ca3af; margin-bottom: 20px; text-align: center; font-size: 0.9rem;">
-                Send a direct message from here. Your contact email address will be verified live for mailbox existence before sending.
+                Send a direct message from here. Your contact email address will be verified live before sending.
             </p>
             
             <div id="form-result" style="display: none; padding: 12px; margin-bottom: 15px; border-radius: 6px; text-align: center; font-weight: 700; font-size: 0.9rem;"></div>
@@ -64,13 +64,13 @@
         form.addEventListener('submit', async function(e) {
             e.preventDefault();
 
-            // 1. SECURITY: Honeypot Check
+            // 1. SECURITY: Honeypot Trap
             if (window.PortfolioSecurity && PortfolioSecurity.isHoneypotTriggered(form)) {
                 showStatus("❌ Security Violation: Automated submission blocked.");
                 return;
             }
 
-            // 2. SECURITY: Time-Based Bot Check (< 3s)
+            // 2. SECURITY: Time-Based Bot Check (< 3 seconds)
             if (window.PortfolioSecurity && PortfolioSecurity.isSubmittedTooFast(3)) {
                 showStatus("⚠️ Submission too fast: Please take a moment before submitting.");
                 return;
@@ -92,17 +92,17 @@
             const emailInput = window.PortfolioSecurity ? window.PortfolioSecurity.sanitizeInput(rawEmail) : rawEmail.trim();
             const messageInput = window.PortfolioSecurity ? window.PortfolioSecurity.sanitizeInput(rawMessage) : rawMessage.trim();
 
-            // 5. REGEX FORMAT CHECK
+            // 5. REGEX SYNTAX FORMAT CHECK
             const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             if (!emailPattern.test(emailInput)) {
-                showStatus("⚠️ Invalid email format: Please enter a valid address (e.g., name@domain.com).");
+                showStatus("⚠️ Invalid email format: Please enter a valid email address (e.g., name@domain.com).");
                 return;
             }
 
-            submitBtn.textContent = "Verifying Mailbox Existence...";
+            submitBtn.textContent = "Verifying Mailbox Authenticity...";
             submitBtn.disabled = true;
 
-            // 6. ABSTRACT API LIVE EXISTENCE VERIFICATION
+            // 6. STRICT ABSTRACT API LIVE EXISTENCE VERIFICATION
             let isEmailValid = false;
             try {
                 const abstractApiKey = "b144d77470eb4500af0b549d3a4ba093";
@@ -115,35 +115,38 @@
                 if (response.ok) {
                     const data = await response.json();
 
-                    // Multi-point verification checks:
-                    const isFormatOk = data.is_valid_format ? data.is_valid_format.value : true;
-                    const isMxFound = data.is_mx_found ? data.is_mx_found.value : true;
-                    const isSmtpValid = data.is_smtp_valid ? data.is_smtp_valid.value : true;
+                    const isFormatOk = data.is_valid_format ? data.is_valid_format.value : false;
+                    const isMxFound = data.is_mx_found ? data.is_mx_found.value : false;
+                    const isDisposable = data.is_disposable_email ? data.is_disposable_email.value : false;
+                    const qualityScore = data.quality_score !== undefined ? parseFloat(data.quality_score) : 1.0;
                     const deliverability = data.deliverability || "UNKNOWN";
 
+                    // Strict validation rules
                     if (!isFormatOk) {
                         showStatus("⚠️ Invalid email format.");
                     } else if (!isMxFound) {
-                        showStatus("⚠️ Non-existing domain: The domain for this email address has no mail servers.");
-                    } else if (deliverability === "UNDELIVERABLE" || isSmtpValid === false) {
-                        showStatus("⚠️ Non-existing email: This specific email address does not exist on mail servers.");
+                        showStatus("⚠️ Non-existing email domain: This domain has no active mail servers.");
+                    } else if (isDisposable) {
+                        showStatus("⚠️ Temporary/Disposable email addresses are not allowed.");
+                    } else if (deliverability === "UNDELIVERABLE" || qualityScore < 0.50) {
+                        showStatus("⚠️ Non-existing or untrusted email address detected.");
                     } else {
-                        isEmailValid = true; // Email verified successfully!
+                        isEmailValid = true; // Email passed all strict verification checks!
                     }
                 } else {
-                    // API quota exceeded or service unavailable — allow submit with warning
-                    console.warn("Abstract API returned status:", response.status);
-                    isEmailValid = true; 
+                    console.warn("Abstract API returned status code:", response.status);
+                    showStatus("⚠️ Unable to verify email address at this time. Please check for typos and try again.");
                 }
             } catch (err) {
-                console.warn("Abstract API lookup skipped or timed out:", err);
-                isEmailValid = true; // Fallback so legitimate users aren't blocked if API goes down
+                console.warn("Abstract API request failed or timed out:", err);
+                showStatus("⚠️ Email verification check timed out. Please check your connection.");
             }
 
+            // Stop submission if email verification failed
             if (!isEmailValid) {
                 submitBtn.textContent = "Submit Message";
                 submitBtn.disabled = false;
-                return; // Stop submission if email verification failed
+                return;
             }
 
             // 7. WEB3FORMS DIRECT SUBMISSION
